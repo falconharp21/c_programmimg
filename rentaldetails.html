@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            background-image: url('D:\23mx216\WAD_Project-20231118T035343Z-001\WAD_Project\temp images\cut-paper-renewable-energy-concept-white-shape-car-background-grass-36696611.webp');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .form-container {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .input-box {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .input-box span {
+            font-weight: bold;
+            width: 55%;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        select {
+            width: 40%;
+            padding: 10px;
+            margin: 2px 0;
+            border: 1px solid #130303;
+            border-radius: 3px;
+        }
+
+        .btn {
+            background-color: rgb(71, 201, 28);
+            padding: 10px 20px;
+            border-radius: 2px;
+            border-color: rgb(19, 12, 12);
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        .btn:hover {
+            background-color: darkgrey;
+        }
+
+    </style>
+</head>
+<body>
+    <h1><center>RENTAL DETAILS</center></h1>
+    <div class="form-container">
+        <form action="#" id="carRentalDetailsForm" onsubmit="return validateForm()">
+            <div class="input-box">
+                <span>PICK-UP LOCATION</span>
+                <input type="text" name="pickup_location" id="pickup_location" required>
+            </div>
+            <div class="input-box">
+                <span>DROP LOCATION</span>
+                <input type="text" name="drop_location" id="drop_location" required>
+            </div>
+            <div class="input-box">
+                <span>PICK-UP DATE</span>
+                <input type="date" name="pickup_date" id="pickup_date" required>
+            </div>
+            <div class="input-box">
+                <span>RETURN DATE</span>
+                <input type="date" name="return_date" id="return_date" required>
+            </div>
+            <div class="input-box">
+                <span>PICK-UP TIME</span>
+                <input type="time" name="pickup_time" id="pickup_time" required>
+            </div>
+            <div class="input-box">
+                <span>DROP TIME</span>
+                <input type="time" name="drop_time" id="drop_time" required>
+            </div>
+            <div class="input-box">
+                <span>SEATER OPTIONS</span>
+                <select name="seater_options" id="seater_options" required>
+                    <option value="" disabled selected>Select number of seats</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="7">7</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <span>DRIVER OPTIONS</span>
+                <select name="driver_options" id="driver_options" required>
+                    <option value="" disabled selected>Driver Options</option>
+                    <option value="With_driver">With Driver</option>
+                    <option value="Without_driver">Without Driver</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <span>FUEL TYPE</span>
+                <select name="fuel_type" id="fuel_type" required>
+                    <option value="" disabled selected>Fuel Type</option>
+                    <option value="Petrol">Petrol</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Any">Any</option>
+                </select>
+            </div>
+            <center><button class="btn" type="submit">Submit</button></center>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            var requiredFields = document.querySelectorAll('[required]');
+            for (var i = 0; i < requiredFields.length; i++) {
+                if (!requiredFields[i].value.trim()) {
+                    alert('Please fill in all required fields.');
+                    return false;
+                }
+            }
+            return true;
+        }
+    
+        // Retrieve query parameters from the URL
+        const queryParams = new URLSearchParams(window.location.search);
+        const pickupLocation = queryParams.get('pickup_location');
+        const dropLocation = queryParams.get('drop_location');
+        const pickupDate = queryParams.get('pickup_date');
+        const dropDate = queryParams.get('return_date');
+    
+        // Fill in the form fields with the retrieved values
+        document.getElementById('pickup_location').value = pickupLocation;
+        document.getElementById('drop_location').value = dropLocation;
+        document.getElementById('pickup_date').value = pickupDate;
+        document.getElementById('return_date').value = dropDate;
+    
+        // Format pickup and drop time as 12-hour with AM/PM
+        function formatTime(timeInputId) {
+            const timeInput = document.getElementById(timeInputId);
+            const time = new Date(timeInput.value);
+            const formattedTime = time.toLocaleString('en-US', {
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true,
+            });
+            timeInput.value = formattedTime;
+        }
+    
+        formatTime('pickup_time');
+        formatTime('drop_time');
+    </script>
+    
+</body>
+</html>
